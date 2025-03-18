@@ -37,7 +37,7 @@ class MultiHeadAttention(nn.Module):
         #计算注意力权重
         weight=F.softmax(scores,dim=-1)
         
-        out=torch.matmul(weight,V)/math.sqrt(self.head_dim)
+        out=torch.matmul(weight,V)
         out=out.transpose(1,2).contiguous().view(batch,-1,self.embedd_dim)
         out=self.total_linear(out)
         return out,weight,kv_cache
